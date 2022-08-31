@@ -206,6 +206,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "google_nav_bar",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/google_nav_bar-5.0.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "google_sign_in",
       "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in-5.4.1",
       "packageUri": "lib/",
@@ -446,7 +452,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2022-08-31T17:12:51.926847Z",
+  "generated": "2022-08-31T19:56:00.215390Z",
   "generator": "pub",
   "generatorVersion": "2.18.0"
 }
