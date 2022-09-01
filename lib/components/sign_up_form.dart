@@ -1,6 +1,8 @@
 import 'package:cryptoapp/components/othe_sign_button.dart';
+import 'package:cryptoapp/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:cryptoapp/config/constants.dart';
+import 'package:provider/provider.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({Key? key}) : super(key: key);
@@ -16,6 +18,8 @@ class _SignUpFormState extends State<SignUpForm> {
   TextEditingController psswrdController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthProvider>(context);
+
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       const SizedBox(
         height: 20,
@@ -94,7 +98,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     ),
             ),
             border: InputBorder.none,
-            hintStyle: TextStyle(
+            hintStyle: const TextStyle(
                 fontFamily: font, color: kLightGrey, letterSpacing: 1),
             hintText: "Enter Your Password",
           ),
@@ -106,7 +110,10 @@ class _SignUpFormState extends State<SignUpForm> {
         height: 40,
       ),
       ElevatedButton(
-          onPressed: () {},
+          onPressed: () async {
+            await auth.createAccount(
+                emailController.text, psswrdController.text);
+          },
           style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),

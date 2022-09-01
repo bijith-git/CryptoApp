@@ -1,9 +1,10 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cryptoapp/components/othe_sign_button.dart';
 import 'package:cryptoapp/components/sign_up_form.dart';
+import 'package:cryptoapp/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cryptoapp/config/constants.dart';
+import 'package:provider/provider.dart';
 
 class FormSection extends StatefulWidget {
   const FormSection({
@@ -23,7 +24,7 @@ class _FormSectionState extends State<FormSection> {
     _signInType;
   }
 
-  bool _signInType = false;
+  bool _signInType = true;
   bool _isVisible = true;
   TextEditingController emailController = TextEditingController();
 
@@ -31,6 +32,7 @@ class _FormSectionState extends State<FormSection> {
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthProvider>(context);
     return widget.signUp
         ? Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -135,7 +137,22 @@ class _FormSectionState extends State<FormSection> {
                 height: 40,
               ),
               ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    final user = await auth.signInAccount(
+                        emailController.text, psswrdController.text);
+                    if (user != 'success') {
+                      final snackBar = SnackBar(
+                        content: Text(user),
+                        action: SnackBarAction(
+                          label: 'Ok',
+                          onPressed: () {
+                            // Some code to undo the change.
+                          },
+                        ),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),

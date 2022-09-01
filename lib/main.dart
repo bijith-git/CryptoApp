@@ -1,8 +1,10 @@
 import 'package:cryptoapp/config/constants.dart';
+import 'package:cryptoapp/config/routes.dart';
 import 'package:cryptoapp/firebase_options.dart';
-import 'package:cryptoapp/screens/login_screens.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:cryptoapp/provider/auth_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,13 +19,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        fontFamily: "MYRIADPRO",
-        scaffoldBackgroundColor: kBlack,
+    return MultiProvider(
+      providers: [
+        Provider<AuthProvider>(
+          create: (_) => AuthProvider(),
+        )
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          fontFamily: "MYRIADPRO",
+          scaffoldBackgroundColor: kBlack,
+        ),
+        home: const Routes(),
       ),
-      home: const LoginScreen(),
     );
   }
 }
