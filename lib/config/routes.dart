@@ -15,9 +15,11 @@ class Routes extends StatelessWidget {
         stream: authService.user,
         builder: (_, AsyncSnapshot<UserDetails?> snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
-            print(snapshot.data);
             final UserDetails? user = snapshot.data;
-            return user == null ? const LoginScreen() : const HomeScreen();
+            final token = authService.getToken();
+            return user == null || token == null
+                ? const LoginScreen()
+                : const HomeScreen();
           } else {
             return const Scaffold(
                 body: Center(
